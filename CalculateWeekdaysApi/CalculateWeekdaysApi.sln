@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30011.22
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CalculateWeekdaysApi", "CalculateWeekdaysApi\CalculateWeekdaysApi.csproj", "{F108E446-C55D-4096-A789-864B4B53AA24}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CalculateWeekdaysApi", "CalculateWeekdaysApi\CalculateWeekdaysApi.csproj", "{F108E446-C55D-4096-A789-864B4B53AA24}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CalculateWeekdaysApi.Tests", "CalculateWeekdaysApi.Tests\CalculateWeekdaysApi.Tests.csproj", "{0A155720-7110-4160-9C76-37A3FD50811C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{F108E446-C55D-4096-A789-864B4B53AA24}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F108E446-C55D-4096-A789-864B4B53AA24}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F108E446-C55D-4096-A789-864B4B53AA24}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0A155720-7110-4160-9C76-37A3FD50811C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0A155720-7110-4160-9C76-37A3FD50811C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0A155720-7110-4160-9C76-37A3FD50811C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0A155720-7110-4160-9C76-37A3FD50811C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
