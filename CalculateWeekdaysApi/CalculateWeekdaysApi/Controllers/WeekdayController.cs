@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CalculateWeekdaysApi.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api")]
     [ApiController]
     public class WeekdayController : ControllerBase
     {
@@ -19,17 +19,9 @@ namespace CalculateWeekdaysApi.Controllers
             this.logger = logger;
         }
 
-        [HttpGet]
-        public string Get()
-        {
-            return "This works!!";
-        }
 
-
-
-
+       
         // POST: api/Weekday
-
         /// <summary>
         /// Calculates the working days between two dates in (dd/mm/yyyy).
         /// </summary>
@@ -51,6 +43,7 @@ namespace CalculateWeekdaysApi.Controllers
         {
             try
             {
+                logger.LogInformation($"In PostMethod: Starting the calculation for- {input.StartDate} & {input.EndDate}");
                 //call the service layer.
                 var result = await service.CalculateWeekdaysAsync(input);
 

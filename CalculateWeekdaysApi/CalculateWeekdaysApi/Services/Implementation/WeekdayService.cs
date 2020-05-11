@@ -28,10 +28,14 @@ namespace CalculateWeekdaysApi.Services.Implementation
             var validErrors = Validate(input);
 
             if (validErrors <= 0)
+            {
+                logger.LogInformation($"Input Validation ValidError Code: {validErrors}");
                 return validErrors;
-
-            DateTime.TryParse(input.StartDate, out DateTime Start);
-            DateTime.TryParse(input.EndDate, out DateTime End);
+            }
+            DateTime.TryParse(input.StartDate, System.Globalization.CultureInfo.GetCultureInfo("en-AU"),
+                System.Globalization.DateTimeStyles.None, out DateTime Start);
+            DateTime.TryParse(input.EndDate, System.Globalization.CultureInfo.GetCultureInfo("en-AU"),
+                System.Globalization.DateTimeStyles.None, out DateTime End);
 
             //do not include start and end date.
             int days = (int)(End - Start).TotalDays - 1;
@@ -55,19 +59,33 @@ namespace CalculateWeekdaysApi.Services.Implementation
 
         private int Validate(InputDates input)
         {
-            if (!DateTime.TryParse(input.StartDate, out DateTime Start))
+            if (!DateTime.TryParse(input.StartDate, System.Globalization.CultureInfo.GetCultureInfo("en-AU"),
+                            System.Globalization.DateTimeStyles.None, out DateTime Start))
+            {
+                logger.LogInformation($"Bad Start Date: {input.StartDate}");
                 return -1;
+            }
 
-            if (!DateTime.TryParse(input.EndDate, out DateTime End))
+            if (!DateTime.TryParse(input.EndDate, System.Globalization.CultureInfo.GetCultureInfo("en-AU"),
+                System.Globalization.DateTimeStyles.None, out DateTime End))
+            {
+                logger.LogInformation($"Bad End Date: {input.EndDate}");
                 return -2;
+            }
 
             //if start date more than end date.
             if (Start > End)
+            {
+                logger.LogInformation($"Start Date: {input.StartDate} is greater than End Date: {input.EndDate}");
                 return -3;
+            }
 
             //if Start and End Date are same.
             if (Start == End)
+            {
+                logger.LogInformation($"Start Date: {input.StartDate} is equal to End Date: {input.EndDate}");
                 return 0;
+            }
 
             return int.MaxValue;
         }
@@ -99,7 +117,8 @@ namespace CalculateWeekdaysApi.Services.Implementation
                 //start the count only when public holiday.
                 if (holiday.IsPublic)
                 {
-                    if (DateTime.TryParse(holiday.Date, out DateTime date))
+                    if (DateTime.TryParse(holiday.Date, System.Globalization.CultureInfo.GetCultureInfo("en-AU"),
+                        System.Globalization.DateTimeStyles.None, out DateTime date))
                     {
                         if (date > start && date < end)
                         {
