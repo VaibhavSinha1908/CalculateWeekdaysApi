@@ -1,9 +1,10 @@
 ﻿using CalculateWeekdaysApi.Models;
+using System.Threading.Tasks;
 
 namespace CalculateWeekdaysApi.Services
 {
     public interface IWeekdayService
     {
-        int CalculateWeekdays(Date input);
+        Task<int> CalculateWeekdaysAsync(InputDates input);
     }
 }
