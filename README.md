@@ -1,6 +1,6 @@
 # CalculateWeekdaysApi
 
-This is an Asp.Net Core 3.1 WebAPI for Calculating the Weekdays for given valid date range. The API is meant to calculate the working days while excluding the start and end date, and all the weekends and public holidays.
+This is an Asp.Net Core 3.1 REST WebAPI for Calculating the Weekdays for given valid date range. The API is meant to calculate the working days while excluding the start and end date, and all the weekends and public holidays.
 
 ### Scope of the API.
 The API is meant to calculate the working days or weekdays between a given date range in the format of (dd/mm/yyyy). The API does not maitain user state and hence is stateless. The API calls another third party API to get the valid *national holiday list for Australia*. This 3rd Party API used here is: https://getfestivo.com/. 
@@ -36,5 +36,7 @@ The API has been deployed to a t2.micro EC2 server. The project URL is: <br/>
 2. The start and end date have to be entered in **dd/mm/yyyy** format as per applicable to .NET CultureInfo “English (Australia)”.
 3. If start date and end date are same, response returned is 0.
 4. The total calls to 3rd Party API under free tier is limited to 100 per quarter. Since we are upserting the queried holiday information in the database, we can query 100 distinct years.
-5. The API does not account for future dates i.e. 2021 and so on, as the 3rd party API does not support future dates/year for the free api key.
-6. The SQL server storing the holiday data is hosted within AWS to give best performance when coupled with EC2 machine. For even better performance, ElastiCache (Redis) can be used.
+5. The CalculateWeekdaysApi API does not account for future dates i.e. 2021 and so on, as the GetFestivo API does not support future dates/year for the free api key.
+
+### Scope for Improvement.
+The SQL server storing the holiday data is hosted within AWS to give a better performance when coupled with EC2 machine. For even better performance, ElastiCache (Redis) can be used.
