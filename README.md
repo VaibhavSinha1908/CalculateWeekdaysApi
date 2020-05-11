@@ -1,6 +1,6 @@
 # CalculateWeekdaysApi
 
-This is an Asp.Net Core 3.1 REST WebAPI for Calculating the Weekdays for given valid date range. The API is meant to calculate the working days while excluding the start and end date, and all the weekends and public holidays.
+This is an Asp.Net Core 3.1 REST WebAPI for Calculating the Weekdays for given valid date range. The API is meant to calculate the working days while excluding the start and end date, and all the weekends and public holidays that fall on weekdays.
 
 
 ### Scope of the API
