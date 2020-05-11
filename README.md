@@ -40,7 +40,9 @@ The API has been deployed to a t2.micro EC2 server. The project URL is: <br/>
 2. The start and end date have to be entered in **dd/mm/yyyy** format as per applicable to .NET CultureInfo “English (Australia)”.
 3. If start date and end date are same, response returned is 0.
 4. The total calls to 3rd Party API under free tier is limited to 100 per quarter. Since we are upserting the queried holiday information in the database, we can query 100 distinct years.
-5. The CalculateWeekdaysApi API does not account for future dates i.e. 2021 and so on, as the GetFestivo API does not support future dates/year for the free api key.
+5. The Holiday List from GetFestivo API accounts for following holidays specific to Australia: New Year's Day, Australia Day, Good Friday, Easter Monday, Anzac Day, Queen's birthday, Christmas Day, Boxing Day. Please note it does not include labor day as the date varies per state. A postman response is included in the repo for reference.
+6. The CalculateWeekdaysApi API does not account for future dates i.e. 2021 and so on, as the GetFestivo API does not support future dates/year for the free api key.
+
 
 
 
