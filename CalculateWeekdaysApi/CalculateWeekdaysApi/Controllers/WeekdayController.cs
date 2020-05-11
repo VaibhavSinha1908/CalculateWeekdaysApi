@@ -20,10 +20,11 @@ namespace CalculateWeekdaysApi.Controllers
         }
 
 
-       
+
         // POST: api/Weekday
         /// <summary>
-        /// Calculates the working days between two dates in (dd/mm/yyyy).
+        /// Calculates the count of working days between two dates entered in dd/mm/yyyy format while excluding start 
+        /// and end date, and weekends and public holidays that fall on weekdays.
         /// </summary>
         /// <remarks>
         /// sample request:

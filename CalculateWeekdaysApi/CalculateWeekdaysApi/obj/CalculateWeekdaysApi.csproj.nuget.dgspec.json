@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Udemy Courses and Tutorials\\Projects\\CodeChallenge_MyBeepr\\CalculateWeekdaysApi\\CalculateWeekdaysApi\\CalculateWeekdaysApi\\CalculateWeekdaysApi.csproj": {}
+    "C:\\Users\\vaibhav\\Source\\Repos\\CalculateWeekdaysApi\\CalculateWeekdaysApi\\CalculateWeekdaysApi\\CalculateWeekdaysApi.csproj": {}
   },
   "projects": {
-    "D:\\Udemy Courses and Tutorials\\Projects\\CodeChallenge_MyBeepr\\CalculateWeekdaysApi\\CalculateWeekdaysApi\\CalculateWeekdaysApi\\CalculateWeekdaysApi.csproj": {
+    "C:\\Users\\vaibhav\\Source\\Repos\\CalculateWeekdaysApi\\CalculateWeekdaysApi\\CalculateWeekdaysApi\\CalculateWeekdaysApi.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Udemy Courses and Tutorials\\Projects\\CodeChallenge_MyBeepr\\CalculateWeekdaysApi\\CalculateWeekdaysApi\\CalculateWeekdaysApi\\CalculateWeekdaysApi.csproj",
+        "projectUniqueName": "C:\\Users\\vaibhav\\Source\\Repos\\CalculateWeekdaysApi\\CalculateWeekdaysApi\\CalculateWeekdaysApi\\CalculateWeekdaysApi.csproj",
         "projectName": "CalculateWeekdaysApi",
-        "projectPath": "D:\\Udemy Courses and Tutorials\\Projects\\CodeChallenge_MyBeepr\\CalculateWeekdaysApi\\CalculateWeekdaysApi\\CalculateWeekdaysApi\\CalculateWeekdaysApi.csproj",
+        "projectPath": "C:\\Users\\vaibhav\\Source\\Repos\\CalculateWeekdaysApi\\CalculateWeekdaysApi\\CalculateWeekdaysApi\\CalculateWeekdaysApi.csproj",
         "packagesPath": "C:\\Users\\vaibhav\\.nuget\\packages\\",
-        "outputPath": "D:\\Udemy Courses and Tutorials\\Projects\\CodeChallenge_MyBeepr\\CalculateWeekdaysApi\\CalculateWeekdaysApi\\CalculateWeekdaysApi\\obj\\",
+        "outputPath": "C:\\Users\\vaibhav\\Source\\Repos\\CalculateWeekdaysApi\\CalculateWeekdaysApi\\CalculateWeekdaysApi\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Microsoft\\Xamarin\\NuGet\\",
