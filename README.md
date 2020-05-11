@@ -8,10 +8,10 @@ The API is meant to calculate the working days or weekdays between a given date 
   Currently the **CalculateWeekdaysApi** is using a free tier version of the GetFestivo API and hence a database repository is maintained to store the holiday list for a queried year. So for instance, if the user queries for a certain date range that does not exist in database, the GetFestivo API will be called once for each year. *Once the holiday list is received, the holiday list and the year is upserted into the database.* **All subsequent queries for that year will be done on database and not on API.** This saves the API calls and results in *faster retrival of data and hence faster performance.*
   
 ### Tech Stack
-For API development: .Net Core 3.1
-For Unit Testing: NUnit, Moq
-For Logging: NLog
-For API XML Documentation: Swagger/Swashbuckle Asp.Net Core
+For API development: .Net Core 3.1 <br/>
+For Unit Testing: NUnit, Moq <br/>
+For Logging: NLog <br/>
+For API XML Documentation: Swagger/Swashbuckle Asp.Net Core<br/>
 
 ### Project URL:
 The API has been deployed to a t2.micro EC2 server. The project URL is: <br/>
