@@ -13,12 +13,14 @@ namespace CalculateWeekdaysApi.Repositories.Implementations
     public class ServiceApiRepository : IServiceApiRepository
     {
         private readonly HttpClient httpClient;
+        private readonly ApiConfiguration apiConfiguration;
         private readonly ILogger<ServiceApiRepository> logger;
         private readonly string _remoteServiceBaseUrl;
 
-        public ServiceApiRepository(HttpClient httpClient, ILogger<ServiceApiRepository> logger)
+        public ServiceApiRepository(HttpClient httpClient, ApiConfiguration apiConfiguration, ILogger<ServiceApiRepository> logger)
         {
             this.httpClient = httpClient;
+            this.apiConfiguration = apiConfiguration;
             this.logger = logger;
             this._remoteServiceBaseUrl = string.Empty;
         }
@@ -29,7 +31,7 @@ namespace CalculateWeekdaysApi.Repositories.Implementations
             {
                 logger.LogInformation($"Calling FestivoApi for: {year}");
                 ApiResponse response;
-                var uri = $"https://getfestivo.com/v1/holidays?api_key=c35700a4-9b43-4a90-866f-b5bc93ce10ae&country=AU&year={year}";
+                var uri = $"{apiConfiguration.BaseUrl}{apiConfiguration.ApiKey}{apiConfiguration.QueryParams}{year}";
 
                 var responseString = await httpClient.GetStringAsync(uri);
 

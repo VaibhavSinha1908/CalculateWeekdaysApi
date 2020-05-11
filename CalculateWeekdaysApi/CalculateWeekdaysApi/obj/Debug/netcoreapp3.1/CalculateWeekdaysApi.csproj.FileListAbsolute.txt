@@ -119,7 +119,6 @@ D:\Udemy Courses and Tutorials\Projects\CodeChallenge_MyBeepr\CalculateWeekdaysA
 D:\Udemy Courses and Tutorials\Projects\CodeChallenge_MyBeepr\CalculateWeekdaysApi\CalculateWeekdaysApi\CalculateWeekdaysApi\bin\Debug\netcoreapp3.1\runtimes\unix\lib\netcoreapp2.0\System.Runtime.Caching.dll
 D:\Udemy Courses and Tutorials\Projects\CodeChallenge_MyBeepr\CalculateWeekdaysApi\CalculateWeekdaysApi\CalculateWeekdaysApi\bin\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp2.0\System.Runtime.Caching.dll
 D:\Udemy Courses and Tutorials\Projects\CodeChallenge_MyBeepr\CalculateWeekdaysApi\CalculateWeekdaysApi\CalculateWeekdaysApi\bin\Debug\netcoreapp3.1\runtimes\win\lib\netstandard2.0\System.Security.Cryptography.ProtectedData.dll
-D:\Udemy Courses and Tutorials\Projects\CodeChallenge_MyBeepr\CalculateWeekdaysApi\CalculateWeekdaysApi\CalculateWeekdaysApi\obj\Debug\netcoreapp3.1\CalculateWeekdaysApi.csprojAssemblyReference.cache
 D:\Udemy Courses and Tutorials\Projects\CodeChallenge_MyBeepr\CalculateWeekdaysApi\CalculateWeekdaysApi\CalculateWeekdaysApi\obj\Debug\netcoreapp3.1\CalculateWeekdaysApi.csproj.CoreCompileInputs.cache
 D:\Udemy Courses and Tutorials\Projects\CodeChallenge_MyBeepr\CalculateWeekdaysApi\CalculateWeekdaysApi\CalculateWeekdaysApi\obj\Debug\netcoreapp3.1\CalculateWeekdaysApi.MvcApplicationPartsAssemblyInfo.cs
 D:\Udemy Courses and Tutorials\Projects\CodeChallenge_MyBeepr\CalculateWeekdaysApi\CalculateWeekdaysApi\CalculateWeekdaysApi\obj\Debug\netcoreapp3.1\CalculateWeekdaysApi.MvcApplicationPartsAssemblyInfo.cache
@@ -132,3 +131,4 @@ D:\Udemy Courses and Tutorials\Projects\CodeChallenge_MyBeepr\CalculateWeekdaysA
 D:\Udemy Courses and Tutorials\Projects\CodeChallenge_MyBeepr\CalculateWeekdaysApi\CalculateWeekdaysApi\CalculateWeekdaysApi\obj\Debug\netcoreapp3.1\CalculateWeekdaysApi.dll
 D:\Udemy Courses and Tutorials\Projects\CodeChallenge_MyBeepr\CalculateWeekdaysApi\CalculateWeekdaysApi\CalculateWeekdaysApi\obj\Debug\netcoreapp3.1\CalculateWeekdaysApi.pdb
 D:\Udemy Courses and Tutorials\Projects\CodeChallenge_MyBeepr\CalculateWeekdaysApi\CalculateWeekdaysApi\CalculateWeekdaysApi\obj\Debug\netcoreapp3.1\CalculateWeekdaysApi.genruntimeconfig.cache
+D:\Udemy Courses and Tutorials\Projects\CodeChallenge_MyBeepr\CalculateWeekdaysApi\CalculateWeekdaysApi\CalculateWeekdaysApi\bin\Debug\netcoreapp3.1\CalculateWeekdaysApi.xml

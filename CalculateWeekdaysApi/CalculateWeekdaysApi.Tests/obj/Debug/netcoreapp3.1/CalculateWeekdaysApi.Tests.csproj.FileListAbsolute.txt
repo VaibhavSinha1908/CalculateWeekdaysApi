@@ -212,3 +212,4 @@ D:\Udemy Courses and Tutorials\Projects\CodeChallenge_MyBeepr\CalculateWeekdaysA
 D:\Udemy Courses and Tutorials\Projects\CodeChallenge_MyBeepr\CalculateWeekdaysApi\CalculateWeekdaysApi\CalculateWeekdaysApi.Tests\bin\Debug\netcoreapp3.1\Moq.dll
 D:\Udemy Courses and Tutorials\Projects\CodeChallenge_MyBeepr\CalculateWeekdaysApi\CalculateWeekdaysApi\CalculateWeekdaysApi.Tests\obj\Debug\netcoreapp3.1\CalculateWeekdaysApi.Tests.csproj.CoreCompileInputs.cache
 D:\Udemy Courses and Tutorials\Projects\CodeChallenge_MyBeepr\CalculateWeekdaysApi\CalculateWeekdaysApi\CalculateWeekdaysApi.Tests\bin\Debug\netcoreapp3.1\Microsoft.EntityFrameworkCore.InMemory.dll
+D:\Udemy Courses and Tutorials\Projects\CodeChallenge_MyBeepr\CalculateWeekdaysApi\CalculateWeekdaysApi\CalculateWeekdaysApi.Tests\bin\Debug\netcoreapp3.1\CalculateWeekdaysApi.xml

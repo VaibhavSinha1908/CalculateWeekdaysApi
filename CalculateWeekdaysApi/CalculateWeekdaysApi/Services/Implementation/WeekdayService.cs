@@ -36,20 +36,20 @@ namespace CalculateWeekdaysApi.Services.Implementation
             //do not include start and end date.
             int days = (int)(End - Start).TotalDays - 1;
 
-            int holidays = days / 7 * 2;
+            int weekEnds = days / 7 * 2; //Number of Weekends in a 7 day week.
             int remain = days % 7;
             DateTime dt = End.AddDays(-remain);
             while (dt.Date < End.Date)
             {
                 if (dt.DayOfWeek == DayOfWeek.Saturday || dt.DayOfWeek == DayOfWeek.Sunday)
-                    holidays++;
+                    weekEnds++;
                 dt = dt.AddDays(1);
             }
 
             //calculate number of public holidays
             int publicHolidays = await GetCountOfPublicHolidaysAsync(Start, End);
 
-            return days - holidays - publicHolidays;
+            return days - weekEnds - publicHolidays;
         }
 
 
