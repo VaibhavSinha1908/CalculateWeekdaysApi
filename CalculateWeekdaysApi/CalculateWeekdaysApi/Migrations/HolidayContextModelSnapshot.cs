@@ -19,21 +19,6 @@ namespace CalculateWeekdaysApi.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("CalculateWeekdaysApi.Models.Entities.PublicHolidays", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("Year")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("PublicHolidays");
-                });
-
             modelBuilder.Entity("CalculateWeekdaysApi.Models.Holiday", b =>
                 {
                     b.Property<int>("Id")
@@ -41,45 +26,104 @@ namespace CalculateWeekdaysApi.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("Country")
+                    b.Property<int?>("Date")
+                        .HasColumnType("int");
+
+                    b.Property<int>("HolidaysListID")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("Month")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Date")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int?>("TypeId")
+                        .HasColumnType("int");
 
-                    b.Property<DateTime>("End")
-                        .HasColumnType("datetime2");
+                    b.Property<int?>("WeekCount")
+                        .HasColumnType("int");
 
-                    b.Property<bool>("IsPublic")
+                    b.Property<int?>("WeekDayIndex")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("Year")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("HolidaysListID");
+
+                    b.HasIndex("TypeId");
+
+                    b.HasIndex("WeekDayIndex");
+
+                    b.ToTable("Holiday");
+                });
+
+            modelBuilder.Entity("CalculateWeekdaysApi.Models.HolidayType", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<bool>("IsActive")
                         .HasColumnType("bit");
 
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("PublicHolidaysId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("Start")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("Substitute")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("Type")
-                        .HasColumnType("nvarchar(max)");
-
                     b.HasKey("Id");
 
-                    b.HasIndex("PublicHolidaysId");
+                    b.ToTable("HolidayType");
+                });
 
-                    b.ToTable("Holiday");
+            modelBuilder.Entity("CalculateWeekdaysApi.Models.Holidays", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("Holidays");
+                });
+
+            modelBuilder.Entity("CalculateWeekdaysApi.Models.WeekDays", b =>
+                {
+                    b.Property<int>("Index")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Index");
+
+                    b.ToTable("WeekDays");
                 });
 
             modelBuilder.Entity("CalculateWeekdaysApi.Models.Holiday", b =>
                 {
-                    b.HasOne("CalculateWeekdaysApi.Models.Entities.PublicHolidays", null)
-                        .WithMany("Holidays")
-                        .HasForeignKey("PublicHolidaysId");
+                    b.HasOne("CalculateWeekdaysApi.Models.Holidays", "Holidays")
+                        .WithMany("HolidayList")
+                        .HasForeignKey("HolidaysListID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("CalculateWeekdaysApi.Models.HolidayType", "Type")
+                        .WithMany()
+                        .HasForeignKey("TypeId");
+
+                    b.HasOne("CalculateWeekdaysApi.Models.WeekDays", "WeekDay")
+                        .WithMany()
+                        .HasForeignKey("WeekDayIndex");
                 });
 #pragma warning restore 612, 618
         }

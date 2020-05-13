@@ -1,4 +1,4 @@
-using CalculateWeekdaysApi.Models.ApiResponse;
+
 using CalculateWeekdaysApi.Models.Entities;
 using CalculateWeekdaysApi.Repositories;
 using CalculateWeekdaysApi.Repositories.Implementations;
@@ -34,17 +34,18 @@ namespace CalculateWeekdaysApi
 
             services.AddScoped<IWeekdayService, WeekdayService>();
 
-            services.AddScoped<IServiceApiRepository, ServiceApiRepository>();
 
-            services.AddSingleton(new ApiConfiguration(Configuration["ApiConfig:ApiKey"], Configuration["ApiConfig:ApiBaseUrl"], Configuration["ApiConfig:ApiQueryParam"]));
+
 
             services.AddScoped<IServiceDbRepository, ServiceDbRepository>();
 
             //Set 5 min as the lifetime for the HttpMessageHandler objects in the pool used for the Catalog Typed Client
-            services.AddHttpClient<IServiceApiRepository, ServiceApiRepository>()
-                .SetHandlerLifetime(TimeSpan.FromMinutes(5));
 
-            services.AddDbContext<HolidayContext>(opts => opts.UseSqlServer(Configuration["ConnectionString:HolidaysDb"]));
+
+            services.AddDbContext<HolidayContext>(opts =>
+                    opts
+                    .UseLazyLoadingProxies()
+                    .UseSqlServer(Configuration["ConnectionString:HolidaysDb"]));
 
 
             services.AddSwaggerGen(c =>

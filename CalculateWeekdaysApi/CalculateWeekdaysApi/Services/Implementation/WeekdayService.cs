@@ -9,17 +9,15 @@ namespace CalculateWeekdaysApi.Services.Implementation
 {
     public class WeekdayService : IWeekdayService
     {
-        private readonly IServiceApiRepository apirepository;
+
         private readonly IServiceDbRepository dbRepository;
         private readonly ILogger<WeekdayService> logger;
 
-        public WeekdayService(IServiceApiRepository apiRepository, IServiceDbRepository dbRepository, ILogger<WeekdayService> logger)
+        public WeekdayService(IServiceDbRepository dbRepository, ILogger<WeekdayService> logger)
         {
-            this.apirepository = apiRepository;
             this.dbRepository = dbRepository;
             this.logger = logger;
         }
-
 
 
         public async Task<int> CalculateWeekdaysAsync(InputDates input)
@@ -49,11 +47,30 @@ namespace CalculateWeekdaysApi.Services.Implementation
                     weekEnds++;
                 dt = dt.AddDays(1);
             }
-
+            int WeekdaysBeforeAdjustment = CalculateWeekdaysBeforeHolidayAdjustment(End, Start);
             //calculate number of public holidays
-            int publicHolidays = await GetCountOfPublicHolidaysAsync(Start, End);
+            int publicHolidays = await GetCountOfHolidays(Start, End);
 
-            return days - weekEnds - publicHolidays;
+            return WeekdaysBeforeAdjustment - publicHolidays;
+        }
+
+
+
+        public int CalculateWeekdaysBeforeHolidayAdjustment(DateTime End, DateTime Start)
+        {
+            int days = (int)(End - Start).TotalDays - 1;
+
+            int weekEnds = days / 7 * 2; //Number of Weekends in a 7 day week.
+            int remain = days % 7;
+            DateTime dt = End.AddDays(-remain);
+            while (dt.Date < End.Date)
+            {
+                if (dt.DayOfWeek == DayOfWeek.Saturday || dt.DayOfWeek == DayOfWeek.Sunday)
+                    weekEnds++;
+                dt = dt.AddDays(1);
+            }
+
+            return days - weekEnds;
         }
 
 
@@ -92,97 +109,145 @@ namespace CalculateWeekdaysApi.Services.Implementation
 
 
 
-        private async Task<int> GetCountOfPublicHolidaysAsync(DateTime start, DateTime end)
+        private async Task<int> GetCountOfHolidays(DateTime start, DateTime end)
         {
-            logger.LogInformation($"Initiating gathering of public information for: {start.Year} - {end.Year}");
+            logger.LogInformation($"Initiating gathering of holiday information for: {start.Year} - {end.Year}");
 
-            List<Holiday> publicHolidayList = new List<Holiday>();
+            //Get the information from Database.
+            var holidays = await dbRepository.GetAllHolidaysListAsync();
+
+            List<DateTime> completeHolidayList = new List<DateTime>();
+
             int count = 0;
             if (start.Year == end.Year)
             {
                 //Append
-                publicHolidayList.AddRange(await GetHolidayListAsync(start.Year));
+                completeHolidayList.AddRange(await GetHolidayListAsync(holidays, start.Year));
             }
             else
             {
                 for (int i = start.Year; i <= end.Year; i++)
                 {
-                    var holidayList = await GetHolidayListAsync(i);
-                    publicHolidayList.AddRange(holidayList);
+                    completeHolidayList.AddRange(await GetHolidayListAsync(holidays, i));
                 }
             }
 
-            foreach (var holiday in publicHolidayList)
+            foreach (var holiday in completeHolidayList)
             {
-                //start the count only when public holiday.
-                if (holiday.IsPublic)
+                if (start < holiday && holiday < end)
                 {
-                    if (DateTime.TryParse(holiday.Date, System.Globalization.CultureInfo.GetCultureInfo("en-AU"),
-                        System.Globalization.DateTimeStyles.None, out DateTime date))
-                    {
-                        if (date > start && date < end)
-                        {
-                            //if the holiday is substitute (i.e. on a Weekday(or Monday)).
-                            if (holiday.Substitute == true)
-                            {
-                                count++;
-                            }
-                            else
-                            {
-                                //if the public holiday is not on weekends.
-                                if (date.DayOfWeek != DayOfWeek.Saturday &&
-                                    date.DayOfWeek != DayOfWeek.Sunday)
-                                {
-                                    count++;
-                                }
-                            }
-                        }
-                    }
+                    if (!IsWeekend(holiday))
+                        count++;
                 }
             }
             return count;
         }
 
 
-        private async Task<IEnumerable<Holiday>> GetHolidayListAsync(int year)
+
+
+        private async Task<List<DateTime>> GetHolidayListAsync(List<Holidays> holidays, int year)
         {
-            try
+            List<DateTime> HolidayList = new List<DateTime>();
+
+            foreach (var listItem in holidays)
             {
-                IEnumerable<Holiday> holidays;
+                //generate the holidays.
+                HolidayList.AddRange(await GenerateHolidaysAsync(listItem.HolidayList, year));
 
-                //check if the info is present in database.
-                holidays = await dbRepository.GetHolidaysListAsync(year);
-
-                //Check if Holidays is null; Call Api to get the public holidays info.
-                if (holidays == null)
-                {
-                    //get the public holiday list from Api.
-                    holidays = await apirepository.GetHolidaysList(year);
-
-                    if (holidays != null)
-                    {
-                        //upsert the info in database.
-                        if (await UpdateDataStoreAsync(holidays, year))
-                        {
-                            logger.Log(LogLevel.Information, $"Upserted {year} info in the database");
-                        }
-                    }
-
-                }
-                return holidays;
             }
-            catch (Exception ex)
-            {
-                logger.LogError(ex.StackTrace);
-                throw;
-            }
+            return HolidayList;
         }
 
 
-        //Update the database with new Year and Holiday List.
-        private async Task<bool> UpdateDataStoreAsync(IEnumerable<Holiday> holidays, int year)
+        public async Task<List<DateTime>> GenerateHolidaysAsync(IList<Holiday> holidayList, int year)
         {
-            return await dbRepository.UpdateHolidaysAsync(holidays, year);
+
+            List<DateTime> holidayDates = new List<DateTime>();
+            foreach (var item in holidayList)
+            {
+                //check if the date is not null and year is null | Only specific date.
+                if (item.Date != null && item.Year == null)
+                {
+                    var dt = GenerateHolidayBasedOnDate(item, year);
+                    dt = CheckforWeekend(dt, item);
+                    if (dt != default)
+                        holidayDates.Add(dt);
+
+                }
+
+                //check if date is not null and year is not null | Specific date in a specific year.
+                if (item.Date != null && item.Year != null)
+                {
+                    var dt = new DateTime(item.Year ?? default, item.Month ?? default, item.Date ?? default);
+                    dt = CheckforWeekend(dt, item);
+                    if (dt != default)
+                        holidayDates.Add(dt);
+                }
+                //check if it is week/month based holiday | Monthly Holiday such as Queen's Bday.
+                if (item.Date == null && item.WeekCount != null && item.WeekDay != null && item.Month != null)
+                {
+                    var dt = GenerateHolidayBasedOnWeekMonth(item, year);
+                    dt = CheckforWeekend(dt, item);
+                    if (dt != default)
+                        holidayDates.Add(dt);
+                }
+            }
+            return holidayDates;
+        }
+
+        private DateTime CheckforWeekend(DateTime dt, Holiday item)
+        {
+            var date = dt;
+            if (item.Type.Name.ToLower() == "public")
+            {
+                while (IsWeekend(date))
+                {
+                    date = date.AddDays(1);
+                }
+
+                return date;
+            }
+            else
+            {
+                //if not a public holiday, then check for weekends.
+                if (!IsWeekend(dt))
+                    return dt;
+                else
+                    return default;
+            }
+        }
+
+        private bool IsWeekend(DateTime date)
+        {
+            return date.DayOfWeek == DayOfWeek.Saturday
+             || date.DayOfWeek == DayOfWeek.Sunday;
+        }
+
+        private DateTime GenerateHolidayBasedOnWeekMonth(Holiday item, int year)
+        {
+            //start 1st day of the month.
+            int counterWeekday = item.WeekCount ?? default;
+            DateTime dt = new DateTime(year, item.Month ?? default, 1);
+            while (dt.Month == item.Month)
+            {
+                var wk = dt.DayOfWeek.ToString();
+                if (wk == item.WeekDay.Name)
+                {
+                    dt = dt.AddDays(7 * (counterWeekday - 1));
+                    return dt;
+                }
+                else
+                    dt = dt.AddDays(1);
+            }
+            return dt;
+        }
+
+
+
+        private DateTime GenerateHolidayBasedOnDate(Holiday item, int year)
+        {
+            return new DateTime(year, item.Month ?? default, item.Date ?? default);
         }
     }
 }

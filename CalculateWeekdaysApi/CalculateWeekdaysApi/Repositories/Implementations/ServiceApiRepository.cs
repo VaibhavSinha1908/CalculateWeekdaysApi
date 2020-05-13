@@ -1,5 +1,4 @@
 ﻿using CalculateWeekdaysApi.Models;
-using CalculateWeekdaysApi.Models.ApiResponse;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using System;
@@ -13,14 +12,14 @@ namespace CalculateWeekdaysApi.Repositories.Implementations
     public class ServiceApiRepository : IServiceApiRepository
     {
         private readonly HttpClient httpClient;
-        private readonly ApiConfiguration apiConfiguration;
+        
         private readonly ILogger<ServiceApiRepository> logger;
         private readonly string _remoteServiceBaseUrl;
 
-        public ServiceApiRepository(HttpClient httpClient, ApiConfiguration apiConfiguration, ILogger<ServiceApiRepository> logger)
+        public ServiceApiRepository(HttpClient httpClient, ILogger<ServiceApiRepository> logger)
         {
             this.httpClient = httpClient;
-            this.apiConfiguration = apiConfiguration;
+           
             this.logger = logger;
             this._remoteServiceBaseUrl = string.Empty;
         }

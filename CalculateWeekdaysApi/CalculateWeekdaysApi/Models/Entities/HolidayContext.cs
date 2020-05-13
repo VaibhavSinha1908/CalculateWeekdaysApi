@@ -10,6 +10,6 @@ namespace CalculateWeekdaysApi.Models.Entities
 
         }
 
-        public DbSet<PublicHolidays> PublicHolidays { get; set; }
+        public DbSet<Holidays> Holidays { get; set; }
     }
 }
