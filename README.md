@@ -40,4 +40,5 @@ For API XML Documentation: Swagger/Swashbuckle Asp.Net Core<br/>
 1. The start and end dates are mandatory fields for the API and appropriate validation logic has been put in place for it.
 2. The start and end date have to be entered in **dd/mm/yyyy** format as per applicable to .NET CultureInfo “English (Australia)”.
 3. If start date and end date are same, response returned is 0.
+4. The data structure has been designed to include future changes to include personal or any type of holidays.
 
