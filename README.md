@@ -4,7 +4,7 @@ This is an Asp.Net Core 3.1 REST WebAPI for Calculating the Weekdays for given v
 
 
 ### Scope of the API
-The API is meant to calculate the working days or weekdays between a given date range in the format of (dd/mm/yyyy). The API does not maitain user state and hence is stateless. The API uses data structure based implementation to calculate the holidays. As for the current version the database is setup to include following holidays for any year:
+The API is meant to calculate the working days or weekdays between a given date range in the format of (dd/mm/yyyy). The API does not maitain user state and hence is stateless. The API uses data structure based implementation to calculate the holidays. As for the current version the database is setup to include following holidays for ***any year***:
 <ul>
 <li>Australia Day</li>
 <li>Anzac Day</li>
